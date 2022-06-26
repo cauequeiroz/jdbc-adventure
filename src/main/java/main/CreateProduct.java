@@ -1,4 +1,4 @@
-package lojavirtual;
+package main;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,12 +10,12 @@ public class CreateProduct {
 		Connection connection = ConnectionFactory.getConnection();
 		
 		Statement sql = connection.createStatement();
-		sql.execute("INSERT INTO PRODUTO (NOME, DESCRICAO) VALUES ('Xbox Series X', 'Microsoft game console')", Statement.RETURN_GENERATED_KEYS);
+		sql.execute("INSERT INTO PRODUTO (NOME, DESCRICAO) VALUES ('Nintendo Switch', 'Nintendo game console')", Statement.RETURN_GENERATED_KEYS);
 		
 		ResultSet result = sql.getGeneratedKeys();
 		result.next();
 		
-		System.out.println(String.format("Produto adicionado com sucesso. ID = %d", result.getInt(1)));
+		System.out.println(String.format("Product added to database successfully. ID = %d", result.getInt(1)));
 		
 		connection.close();
 	}
