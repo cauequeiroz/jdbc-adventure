@@ -1,18 +1,16 @@
 package main;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class App {
+public class ReadProduct {
 	public static void main(String[] args) throws SQLException {
-		System.out.println("Hello JDBC!");
-		
 		Connection connection = ConnectionFactory.getConnection();
 		
-		Statement sql = connection.createStatement();
-		sql.execute("SELECT * FROM PRODUTO");
+		PreparedStatement sql = connection.prepareStatement("SELECT * FROM PRODUTO");
+		sql.execute();
 		ResultSet results = sql.getResultSet();
 		
 		while (results.next()) {

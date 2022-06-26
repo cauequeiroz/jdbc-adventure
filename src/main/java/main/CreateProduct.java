@@ -4,13 +4,19 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 public class CreateProduct {
 	public static void main(String[] args) throws SQLException {
-		Connection connection = ConnectionFactory.getConnection();
+		String name = "Soundbar JBL";
+		String description = "A powerful soundbar.";		
+	
+		Connection connection = ConnectionFactory.getConnection();		
+		PreparedStatement sql = connection.prepareStatement("INSERT INTO PRODUTO (NOME, DESCRICAO) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
 		
-		Statement sql = connection.createStatement();
-		sql.execute("INSERT INTO PRODUTO (NOME, DESCRICAO) VALUES ('Nintendo Switch', 'Nintendo game console')", Statement.RETURN_GENERATED_KEYS);
+		sql.setString(1, name);
+		sql.setString(2, description);
+		sql.execute();
 		
 		ResultSet result = sql.getGeneratedKeys();
 		result.next();
