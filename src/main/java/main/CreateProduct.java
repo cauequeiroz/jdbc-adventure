@@ -8,21 +8,31 @@ import java.sql.PreparedStatement;
 
 public class CreateProduct {
 	public static void main(String[] args) throws SQLException {
-		String name = "Soundbar JBL";
-		String description = "A powerful soundbar.";		
-	
-		Connection connection = ConnectionFactory.getConnection();		
-		PreparedStatement sql = connection.prepareStatement("INSERT INTO PRODUTO (NOME, DESCRICAO) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
-		
+		try (Connection connection = new ConnectionFactory().getConnection()) {
+			connection.setAutoCommit(false);
+
+			try (PreparedStatement sql = connection.prepareStatement(
+					"INSERT INTO PRODUTO (NOME, DESCRICAO) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+				create("Product #1", "Lorem ipsum silor dot amet.", sql);
+				create("Product #2", "Lorem ipsum silor dot amet.", sql);
+				create("Product #3", "Lorem ipsum silor dot amet.", sql);
+
+				connection.commit();
+			} catch (Exception error) {
+				System.out.println("Rollback transaction.");
+				connection.rollback();
+			}
+		}
+	}
+
+	public static void create(String name, String description, PreparedStatement sql) throws SQLException {
 		sql.setString(1, name);
 		sql.setString(2, description);
 		sql.execute();
-		
-		ResultSet result = sql.getGeneratedKeys();
-		result.next();
-		
-		System.out.println(String.format("Product added to database successfully. ID = %d", result.getInt(1)));
-		
-		connection.close();
+
+		try (ResultSet result = sql.getGeneratedKeys()) {
+			result.next();
+			System.out.println(String.format("Product added to database successfully. ID = %d", result.getInt(1)));
+		}
 	}
 }
