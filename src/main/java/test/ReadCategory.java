@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import main.Category;
-import main.CategoryDAO;
-import main.ConnectionFactory;
+import dao.CategoryDAO;
+import infra.ConnectionFactory;
+import model.Category;
 
 public class ReadCategory {
 	public static void main(String[] args) throws SQLException {

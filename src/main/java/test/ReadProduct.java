@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import main.ConnectionFactory;
-import main.Product;
-import main.ProductDAO;
+import dao.ProductDAO;
+import infra.ConnectionFactory;
+import model.Product;
 
 public class ReadProduct {
 	public static void main(String[] args) throws SQLException {

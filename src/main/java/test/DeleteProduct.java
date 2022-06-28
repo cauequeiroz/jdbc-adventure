@@ -3,8 +3,8 @@ package test;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import main.ConnectionFactory;
-import main.ProductDAO;
+import dao.ProductDAO;
+import infra.ConnectionFactory;
 
 public class DeleteProduct {
 	public static void main(String[] args) throws SQLException {

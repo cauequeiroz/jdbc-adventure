@@ -3,9 +3,9 @@ package test;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import main.ConnectionFactory;
-import main.Product;
-import main.ProductDAO;
+import dao.ProductDAO;
+import infra.ConnectionFactory;
+import model.Product;
 
 public class CreateProduct {
 	public static void main(String[] args) throws SQLException {
